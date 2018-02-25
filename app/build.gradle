@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'fullChar'
+            keyPassword 'A1b2c3d4.'
+            storeFile file('C:/Users/aureo/android.jks')
+            storePassword 'selvaggiaa1988'
+        }
+    }
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "com.visneweb.baytech.tracker"
+        minSdkVersion 23
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    // https://mvnrepository.com/artifact/net.sf.bluecove/bluecove
+    compile 'net.sf.bluecove:bluecove:2.1.0'
+    // https://mvnrepository.com/artifact/net.sf.bluecove/bluecove-gpl
+    compile 'net.sf.bluecove:bluecove-gpl:2.1.0'
+}
