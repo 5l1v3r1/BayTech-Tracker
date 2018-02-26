@@ -16,13 +16,6 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/rssi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:text="-500" />
-
     <Switch
         android:id="@+id/track"
         android:layout_width="wrap_content"

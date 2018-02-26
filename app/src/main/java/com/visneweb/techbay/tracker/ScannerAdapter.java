@@ -64,7 +64,6 @@ public class ScannerAdapter extends BaseAdapter {
 
     private class ViewHolder {
         private TextView name;
-        private TextView rssi;
         private Switch track;
         private MyDevice device;
         private Intent i = new Intent(context, BluetoothService.class);
@@ -74,13 +73,6 @@ public class ScannerAdapter extends BaseAdapter {
             device = getItem(position);
             name = v.findViewById(com.visneweb.techbay.tracker.R.id.name);
             name.setText(device.getName());
-            if (device.isTracked()) {
-                rssi = v.findViewById(R.id.rssi);
-                rssi.setText(device.getRssi());
-                rssi.setVisibility(View.VISIBLE);
-            } else {
-                rssi.setVisibility(View.GONE);
-            }
             track = v.findViewById(com.visneweb.techbay.tracker.R.id.track);
             track.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 public class BluetoothService extends Service {
@@ -56,18 +57,19 @@ public class BluetoothService extends Service {
         public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
             if (canWarn) {
                 if (rssi < WEAK) {
-                    Toast.makeText(getApplicationContext(), " weak rssi: " + rssi, Toast.LENGTH_SHORT).show();
+                    Log.i("BLT", "signal is weak");
                     //TODO make a notification with call melody
                     dontWarnForAWhile.run();
                 } else if (rssi < MEDIUM) {
-                    Toast.makeText(getApplicationContext(), " medium rssi: " + rssi, Toast.LENGTH_SHORT).show();
+                    Log.i("BLT", "signal is medium");
                     //TODO make a simple notification
                     dontWarnForAWhile.run();
                 }
             } else if (rssi > STRONG) {
-                Toast.makeText(getApplicationContext(), "device is near, stops canWarn.. rssi:  " + rssi, Toast.LENGTH_SHORT).show();
+                Log.i("BLT", "device is near, stops warning..");
                 //TODO stop any canWarn if exists
             }
+            Log.i("BLT", "rssi: " + rssi);
         }
     };
 
