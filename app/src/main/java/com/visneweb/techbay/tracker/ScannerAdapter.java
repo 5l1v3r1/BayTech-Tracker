@@ -1,9 +1,9 @@
 package com.visneweb.techbay.tracker;
 
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCallback;
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by aureo on 16.02.2018.
@@ -22,9 +24,12 @@ import java.util.List;
 public class ScannerAdapter extends BaseAdapter {
     private List<MyDevice> devices = new ArrayList<>();
     private Context context;
+    private SharedPreferences pref;
+
 
     public ScannerAdapter(Context c) {
         this.context = c;
+        pref = PreferenceManager.getDefaultSharedPreferences(c);
     }
 
     public void add(MyDevice device) {
@@ -62,22 +67,8 @@ public class ScannerAdapter extends BaseAdapter {
         private TextView rssi;
         private Switch track;
         private MyDevice device;
-        private BluetoothGatt gatt;
-        private BluetoothGattCallback callback = new BluetoothGattCallback() {
+        private Intent i = new Intent(context, BluetoothService.class);
 
-            @Override
-            public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-                super.onConnectionStateChange(gatt, status, newState);
-                Log.i("BLT", "status" + status);
-                Log.i("BLT", "new state" + status);
-            }
-
-            @Override
-            public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
-                Log.i("BLT", "rssi: " + rssi);
-                notifyDataSetChanged();
-            }
-        };
 
         public ViewHolder(View v, final int position) {
             device = getItem(position);
@@ -102,13 +93,19 @@ public class ScannerAdapter extends BaseAdapter {
                 }
             });
         }
-
         private void track() {
-
+            Set<String> addresses = pref.getStringSet("devices", new HashSet<String>());
+            addresses.add(device.getAdress());
+            pref.edit().putStringSet("devices", addresses).apply();
+            i.putExtra("address", device.getAdress());
+            context.startService(i);
         }
 
         private void stopTracking() {
-            gatt.disconnect();
+            Set<String> addresses = pref.getStringSet("devices", new HashSet<String>());
+            addresses.remove(device.getAdress());
+            pref.edit().putStringSet("devices", addresses).apply();
+            context.stopService(i);
         }
     }
 }
