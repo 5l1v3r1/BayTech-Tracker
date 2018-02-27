@@ -2,4 +2,7 @@
     <string name="app_name">TRACKER</string>
     <string name="scan">Scan</string>
     <string name="connect">Connect</string>
+    <string name="forgot">Didn\'t you forget anything?</string>
+    <string name="losing">You are about to lose your wallet!</string>
+    <string name="detail">Click for more detail</string>
 </resources>
