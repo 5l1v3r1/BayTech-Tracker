@@ -5,4 +5,7 @@
     <string name="forgot">Didn\'t you forget anything?</string>
     <string name="losing">You are about to lose your wallet!</string>
     <string name="detail">Click for more detail</string>
+    <string name="warning">Warning</string>
+    <string name="alarm">Alarm</string>
+    <string name="settings">Settings</string>
 </resources>
