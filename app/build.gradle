@@ -28,11 +28,11 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    // https://mvnrepository.com/artifact/net.sf.bluecove/bluecove
+    compile "com.android.support:support-v13:26.1.0"
+    compile "com.android.support:appcompat-v7:26.1.0"
     compile 'net.sf.bluecove:bluecove:2.1.0'
-    // https://mvnrepository.com/artifact/net.sf.bluecove/bluecove-gpl
     compile 'net.sf.bluecove:bluecove-gpl:2.1.0'
 }
