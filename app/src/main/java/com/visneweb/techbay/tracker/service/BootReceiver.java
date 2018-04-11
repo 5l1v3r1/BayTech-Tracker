@@ -1,4 +1,4 @@
-package com.visneweb.techbay.tracker;
+package com.visneweb.techbay.tracker.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

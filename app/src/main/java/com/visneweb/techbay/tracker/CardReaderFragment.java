@@ -3,7 +3,7 @@ package com.visneweb.techbay.tracker;
 /**
  * Created by riskactive on 17.03.2018.
  */
-import android.app.Activity;
+
 import android.app.Fragment;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
@@ -65,7 +65,7 @@ public class CardReaderFragment extends Fragment implements LoyaltyCardReader.Ac
 
     private void enableReaderMode() {
         Log.i(TAG, "Enabling reader mode");
-        NfcAdapter nfc = NfcAdapter.getDefaultAdapter(getContext());
+        NfcAdapter nfc = NfcAdapter.getDefaultAdapter(getActivity().getBaseContext());
         if (nfc != null) {
             nfc.enableReaderMode(getActivity(), mLoyaltyCardReader, READER_FLAGS, null);
         }
@@ -73,7 +73,7 @@ public class CardReaderFragment extends Fragment implements LoyaltyCardReader.Ac
 
     private void disableReaderMode() {
         Log.i(TAG, "Disabling reader mode");
-        NfcAdapter nfc = NfcAdapter.getDefaultAdapter(getContext());
+        NfcAdapter nfc = NfcAdapter.getDefaultAdapter(getActivity().getBaseContext());
         if (nfc != null) {
             nfc.disableReaderMode(getActivity());
         }
