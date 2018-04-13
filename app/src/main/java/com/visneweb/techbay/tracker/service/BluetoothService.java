@@ -14,13 +14,13 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
-import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.visneweb.techbay.tracker.MyPreferenceManager;
 import com.visneweb.techbay.tracker.R;
+import com.visneweb.techbay.tracker.camera.CameraActivity;
 import com.visneweb.techbay.tracker.common.MainActivity;
 import com.visneweb.techbay.tracker.db.AppDatabase;
 import com.visneweb.techbay.tracker.db.DeviceDao;
@@ -29,9 +29,14 @@ import com.visneweb.techbay.tracker.db.MyDevice;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.visneweb.techbay.tracker.common.Constants.ACTION;
+import static com.visneweb.techbay.tracker.common.Constants.ACTION_START_CAMERA;
+import static com.visneweb.techbay.tracker.common.Constants.ACTION_TAKE_PHOTO;
+
 
 public class BluetoothService extends Service {
     private static final int TAKE_PICTURE = 1;
+
 
     private static final int SIGNAL_DELAY = 1000;
     private static List<MyConnection> signals = new ArrayList<>();
@@ -107,13 +112,17 @@ public class BluetoothService extends Service {
                 Log.i("BLT", "new device requested to be tracked, creating new signal");
                 MyConnection newSignal = new MyConnection(d) {
                     @Override
-                    public void startCameraIntent(Intent cam) {
-                        Log.i("BLT", "attempt to start camera activity..");
-                        Uri uri = Uri.fromFile(getExternalMediaDirs()[0]);
-                        cam.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                        cam.putExtra("android.intent.extras.CAMERA_FACING", true);
-                        cam.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(cam);
+                    public void startCameraIntent() {
+                        if (CameraActivity.isRunning) {
+                            Intent intent = new Intent();
+                            intent.setAction(ACTION_TAKE_PHOTO);
+                            sendBroadcast(intent);
+                        } else {
+                            Intent cam = new Intent(getApplicationContext(), CameraActivity.class);
+                            cam.putExtra(ACTION, ACTION_START_CAMERA);
+                            cam.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(cam);
+                        }
                     }
 
                     @Override

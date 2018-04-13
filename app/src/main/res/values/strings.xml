@@ -18,4 +18,7 @@
     <string name="start_scan">Start scan</string>
     <string name="scanning">Scanning for new connectable devices</string>
     <string name="off">Off</string>
+    <string name="take_picture">Take picture</string>
+    <string name="camera_button_text">Tap the button of iTAG for take a photo</string>
+
 </resources>

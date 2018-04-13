@@ -15,8 +15,9 @@ android {
         applicationId "com.visneweb.techbay"
         minSdkVersion 22
         targetSdkVersion 27
-        versionCode 3
-        versionName "0.1.3"
+        versionCode 4
+        versionName "0.1.4"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {

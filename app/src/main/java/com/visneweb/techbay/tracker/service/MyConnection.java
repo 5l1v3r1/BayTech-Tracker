@@ -4,10 +4,8 @@ import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.util.Log;
 
 import com.visneweb.techbay.tracker.db.MyDevice;
@@ -127,11 +125,10 @@ public abstract class MyConnection extends BluetoothGattCallback {
     }
 
     public void takePhoto() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startCameraIntent(intent);
+        startCameraIntent();
     }
 
-    public abstract void startCameraIntent(Intent cam);
+    public abstract void startCameraIntent();
 
     @Override
     public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
